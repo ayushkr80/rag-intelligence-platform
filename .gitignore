@@ -1,0 +1,24 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Tooling
+.commandcode/
+.pytest_cache/
+.ruff_cache/
+.coverage
+
+# Data (documents and generated artifacts stay local)
+data/raw/
+data/processed/
+data/eval_cache/
+
+# OS
+.DS_Store
+Thumbs.db
