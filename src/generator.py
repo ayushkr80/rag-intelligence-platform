@@ -3,6 +3,7 @@
 from google import genai
 
 from src import config
+from src.retry import call_with_backoff
 
 _client: genai.Client | None = None
 
@@ -30,8 +31,11 @@ def get_client() -> genai.Client:
 
 def generate_answer(question: str, context: str) -> str:
     """Answer the question grounded in the numbered context chunks."""
-    response = get_client().models.generate_content(
-        model=config.GEMINI_GENERATION_MODEL,
-        contents=PROMPT_TEMPLATE.format(context=context, question=question),
+    response = call_with_backoff(
+        lambda: get_client().models.generate_content(
+            model=config.GEMINI_GENERATION_MODEL,
+            contents=PROMPT_TEMPLATE.format(context=context, question=question),
+        ),
+        label="generate",
     )
     return response.text

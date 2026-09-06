@@ -3,6 +3,7 @@
 from google import genai
 
 from src import config
+from src.retry import call_with_backoff
 
 _client: genai.Client | None = None
 
@@ -17,9 +18,12 @@ def get_client() -> genai.Client:
 
 def embed_texts(texts: list[str]) -> list[list[float]]:
     """Embed a batch of texts, one 3072-dim vector per text, order preserved."""
-    result = get_client().models.embed_content(
-        model=config.GEMINI_EMBEDDING_MODEL,
-        contents=texts,
+    result = call_with_backoff(
+        lambda: get_client().models.embed_content(
+            model=config.GEMINI_EMBEDDING_MODEL,
+            contents=texts,
+        ),
+        label="embed",
     )
     return [item.values for item in result.embeddings]
 
