@@ -9,6 +9,7 @@ import time
 from src import config
 from src.embeddings import embed_query_cached
 from src.generator import generate_answer
+from src.graph_tool import query as query_graph
 from src.query_rewriter import rewrite_query
 from src.retrieval import load_corpus, retrieve
 from src.router import route
@@ -30,6 +31,8 @@ def answer(history: list[tuple[str, str]], question: str) -> dict:
     tool = route(search_query)
     time.sleep(1.0)
     sql_debug = None
+    graph_debug = None
+    evidence = None
 
     if tool == "sql":
         result = run_sql(search_query)
@@ -45,7 +48,23 @@ def answer(history: list[tuple[str, str]], question: str) -> dict:
             )
             sql_debug = {"sql": result["sql"], "rows": result["rows"]}
 
-    if tool != "sql":
+    elif tool == "graph":
+        graph_result = query_graph(search_query)
+        if not graph_result["triples"]:
+            tool = "vector (no graph matches)"
+        else:
+            facts = "\n".join(
+                f"{subject} | {relation} | {obj} | (page {page})"
+                for subject, relation, obj, page in graph_result["triples"]
+            )
+            evidence = (
+                "Knowledge graph facts (subject | relation | object | source page):\n"
+                f"{facts}\n\nUse these facts to answer; follow the connections "
+                "between them for multi-hop reasoning."
+            )
+            graph_debug = graph_result
+
+    if tool != "sql" and evidence is None:
         store, bm25, _ = _corpus()
         results = retrieve(
             embed_query_cached(search_query), search_query, store, bm25, config.RAG_MODE
@@ -60,5 +79,6 @@ def answer(history: list[tuple[str, str]], question: str) -> dict:
         "route": tool,
         "search_query": search_query,
         "sql_debug": sql_debug,
+        "graph_debug": graph_debug,
         "answer": generate_answer(question, evidence),
     }

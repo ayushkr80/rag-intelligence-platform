@@ -19,6 +19,8 @@ QUESTIONS = [
     "Which company grew its cloud or data center business fastest?",
     "How much dividend per share did Apple pay in 2024?",
     "Why did NVIDIA's revenue grow so much in fiscal 2025?",
+    "Which suppliers does NVIDIA depend on?",
+    "Do Apple, Microsoft and NVIDIA share the same suppliers?",
 ]
 
 
@@ -36,6 +38,9 @@ def main() -> None:
         if result["sql_debug"]:
             print(f"  sql: {result['sql_debug']['sql']}")
             print(f"  rows: {result['sql_debug']['rows'][:8]}")
+        if result["graph_debug"]:
+            print(f"  graph entities: {result['graph_debug']['entities']}")
+            print(f"  graph triples: {len(result['graph_debug']['triples'])}")
         print(f"\nANSWER: {result['answer']}\n")
         history.append((question, result["answer"]))
         time.sleep(1.5)
