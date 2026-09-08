@@ -19,6 +19,12 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 GEMINI_EMBEDDING_MODEL = os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-001")
 GEMINI_GENERATION_MODEL = os.getenv("GEMINI_GENERATION_MODEL", "gemini-3.6-flash")
+TOOL_MODEL = os.getenv("TOOL_MODEL", "gemini-3.5-flash")
+FALLBACK_MODELS = [
+    model.strip()
+    for model in os.getenv("FALLBACK_MODELS", "gemini-3.5-flash,gemini-3.7-flash").split(",")
+    if model.strip()
+]
 RERANKER_MODEL = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-base")
 RAG_MODE = os.getenv("RAG_MODE", "hybrid_rerank")
 

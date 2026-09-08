@@ -1,9 +1,14 @@
-"""LLM generation: turns retrieved context + a question into a grounded answer."""
+"""LLM generation: turns retrieved context + a question into a grounded answer.
+
+Answers try the primary model first, then fail over to the fallback on quota
+exhaustion — free-tier daily buckets are per model, so a second model keeps
+the system alive when the first one is drained.
+"""
 
 from google import genai
 
 from src import config
-from src.retry import call_with_backoff
+from src.retry import call_with_failover
 
 _client: genai.Client | None = None
 
@@ -31,9 +36,11 @@ def get_client() -> genai.Client:
 
 def generate_answer(question: str, context: str) -> str:
     """Answer the question grounded in the numbered context chunks."""
-    response = call_with_backoff(
-        lambda: get_client().models.generate_content(
-            model=config.GEMINI_GENERATION_MODEL,
+    models = [config.GEMINI_GENERATION_MODEL, *config.FALLBACK_MODELS]
+    response = call_with_failover(
+        models,
+        lambda model: get_client().models.generate_content(
+            model=model,
             contents=PROMPT_TEMPLATE.format(context=context, question=question),
         ),
         label="generate",
