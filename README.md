@@ -52,9 +52,9 @@ copy .env.example .env        # then add your API key
 ## Roadmap
 
 - [x] Phase 0 — repo scaffold, config, environment
-- [ ] Phase 1 — naive RAG from scratch (embeddings, chunking, vector search)
-- [ ] Phase 2 — ingestion pipeline for messy PDFs (tables, metadata)
-- [ ] Phase 3 — hybrid retrieval + reranking + query rewriting
+- [x] Phase 1 — naive RAG from scratch (embeddings, chunking, vector search)
+- [x] Phase 2 — ingestion pipeline for messy PDFs (tables, metadata)
+- [x] Phase 3 — hybrid retrieval + reranking + query rewriting
 - [ ] Phase 4 — agentic routing: vector / GraphRAG / SQL
 - [ ] Phase 5 — permission-aware retrieval, injection defense, citations
 - [ ] Phase 6 — eval pipeline (golden set, Ragas, LLM-as-judge, regression gate)
