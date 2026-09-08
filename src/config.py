@@ -19,6 +19,8 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 GEMINI_EMBEDDING_MODEL = os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-001")
 GEMINI_GENERATION_MODEL = os.getenv("GEMINI_GENERATION_MODEL", "gemini-3.6-flash")
+RERANKER_MODEL = os.getenv("RERANKER_MODEL", "BAAI/bge-reranker-base")
+RAG_MODE = os.getenv("RAG_MODE", "hybrid_rerank")
 
 
 def active_api_key() -> str | None:
