@@ -30,12 +30,12 @@ for question in QUESTIONS:
     print("QUESTION:", question)
 
     results = store.search(embed_query(question), top_k=3)
-    for score, text, _ in results:
+    for score, text, _, _ in results:
         preview = text[:70].replace("\n", " ")
         print(f"  {score:.3f}  {preview}...")
 
     context = "\n\n".join(
-        f"[{i}] {text}" for i, (_, text, _) in enumerate(results)
+        f"[{i}] {text}" for i, (_, text, _, _) in enumerate(results)
     )
     print("\nANSWER:", generate_answer(question, context))
     print()

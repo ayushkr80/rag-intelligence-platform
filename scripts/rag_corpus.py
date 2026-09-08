@@ -48,13 +48,13 @@ def main() -> None:
         print("QUESTION:", question)
 
         results = store.search(embed_query(question), top_k=4)
-        for score, text, meta in results:
+        for score, text, meta, _ in results:
             preview = text[:60].replace("\n", " ")
             print(f"  {score:.3f}  [{meta['company']} p.{meta['page']}]  {preview}...")
 
         context = "\n\n".join(
             f"[{i}] ({meta['company']} {meta['year']} 10-K, page {meta['page']})\n{text}"
-            for i, (_, text, meta) in enumerate(results)
+            for i, (_, text, meta, _) in enumerate(results)
         )
         print("\nANSWER:", generate_answer(question, context))
         print()

@@ -27,12 +27,12 @@ class InMemoryVectorStore:
 
     def search(
         self, query_vector: list[float], top_k: int = 3
-    ) -> list[tuple[float, str, dict | None]]:
-        """Return the top_k chunks as (score, text, metadata)."""
+    ) -> list[tuple[float, str, dict | None, int]]:
+        """Return the top_k chunks as (score, text, metadata, index)."""
         norms = self._vectors / np.linalg.norm(self._vectors, axis=1, keepdims=True)
         query = np.array(query_vector) / np.linalg.norm(query_vector)
         scores = norms @ query
         top = np.argsort(scores)[::-1][:top_k]
         return [
-            (float(scores[i]), self.texts[i], self.metadatas[i]) for i in top
+            (float(scores[i]), self.texts[i], self.metadatas[i], int(i)) for i in top
         ]
