@@ -15,6 +15,8 @@ from src.agent import answer
 
 
 def main() -> None:
+    role = input("role [analyst/employee, default employee]> ").strip() or "employee"
+    print(f"chatting as role: {role}\n")
     history: list[tuple[str, str]] = []
     print("Chat with the 10-K corpus (Apple, Microsoft, NVIDIA). Type 'exit' to quit.\n")
 
@@ -28,7 +30,7 @@ def main() -> None:
         if question.lower() in ("exit", "quit"):
             break
 
-        result = answer(history, question)
+        result = answer(history, question, role=role)
         if result["search_query"] != question:
             print(f"  (searching: {result['search_query']})")
         print(f"  (route: {result['route']})")

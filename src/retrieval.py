@@ -13,10 +13,11 @@ import numpy as np
 from src import config
 from src.bm25 import BM25Index
 from src.hybrid import reciprocal_rank_fusion
+from src.permissions import permitted_indices
 from src.vector_store import InMemoryVectorStore
 
-DENSE_CANDIDATES = 20
-BM25_CANDIDATES = 20
+DENSE_CANDIDATES = 40
+BM25_CANDIDATES = 60
 RERANK_POOL = 24
 
 
@@ -30,7 +31,12 @@ def load_corpus() -> tuple[InMemoryVectorStore, BM25Index, list[dict]]:
         [chunk["text"] for chunk in chunks],
         vectors.tolist(),
         [
-            {"company": chunk["company"], "year": chunk["year"], "page": chunk["page"]}
+            {
+                "company": chunk["company"],
+                "year": chunk["year"],
+                "page": chunk["page"],
+                "level": chunk.get("level", "public"),
+            }
             for chunk in chunks
         ],
     )
@@ -46,17 +52,32 @@ def retrieve(
     bm25: BM25Index,
     mode: str,
     top_k: int = 4,
+    role: str = "employee",
 ) -> list[dict]:
-    """Return the top_k chunk dicts for the requested retrieval mode."""
+    """Return the top_k permitted chunk dicts for the requested mode.
+
+    Permission filtering happens here — inside retrieval — over an
+    over-fetched candidate pool, so restricted documents never consume
+    result slots even when they rank highly.
+    """
+    allowed = permitted_indices(store.metadatas, role)
+
     if mode == "dense":
-        hits = store.search(query_vector, top_k=top_k)
+        hits = store.search(query_vector, top_k=top_k * 4)
+        hits = [hit for hit in hits if hit[3] in allowed][:top_k]
         return [
             {"text": text, "metadata": meta, "index": index, "dense_score": score}
             for score, text, meta, index in hits
         ]
 
-    dense_hits = store.search(query_vector, top_k=DENSE_CANDIDATES)
-    bm25_hits = bm25.search(question, top_k=BM25_CANDIDATES)
+    dense_hits = [
+        hit for hit in store.search(query_vector, top_k=DENSE_CANDIDATES) if hit[3] in allowed
+    ]
+    bm25_hits = [
+        (score, index)
+        for score, index in bm25.search(question, top_k=BM25_CANDIDATES)
+        if index in allowed
+    ]
     fused = reciprocal_rank_fusion(
         [index for _, _, _, index in dense_hits],
         [index for _, index in bm25_hits],

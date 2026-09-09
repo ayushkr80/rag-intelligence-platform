@@ -10,6 +10,7 @@ from src import config
 from src.embeddings import embed_query_cached
 from src.generator import generate_answer
 from src.graph_tool import query as query_graph
+from src.guards import detect_injection, wrap_document
 from src.query_rewriter import rewrite_query
 from src.retrieval import load_corpus, retrieve
 from src.router import route
@@ -25,7 +26,9 @@ def _corpus():
     return _store, _bm25, _chunks
 
 
-def answer(history: list[tuple[str, str]], question: str) -> dict:
+def answer(
+    history: list[tuple[str, str]], question: str, role: str = "employee"
+) -> dict:
     """Run the full pipeline; returns route, search query, and the answer."""
     search_query = rewrite_query(history, question)
     tool = route(search_query)
@@ -67,13 +70,31 @@ def answer(history: list[tuple[str, str]], question: str) -> dict:
     if tool != "sql" and evidence is None:
         store, bm25, _ = _corpus()
         results = retrieve(
-            embed_query_cached(search_query), search_query, store, bm25, config.RAG_MODE
+            embed_query_cached(search_query),
+            search_query,
+            store,
+            bm25,
+            config.RAG_MODE,
+            role=role,
         )
-        evidence = "\n\n".join(
-            f"[{i}] ({chunk['metadata']['company']} {chunk['metadata']['year']} 10-K, "
-            f"page {chunk['metadata']['page']})\n{chunk['text']}"
-            for i, chunk in enumerate(results)
-        )
+        guarded = []
+        withheld = 0
+        for i, chunk in enumerate(results):
+            if detect_injection(chunk["text"]):
+                withheld += 1
+                guarded.append(
+                    f"[{i}] ({chunk['metadata']['company']} {chunk['metadata']['year']} "
+                    f"10-K, page {chunk['metadata']['page']}) — "
+                    "WITHHELD: injection pattern detected in this document."
+                )
+                continue
+            guarded.append(
+                f"[{i}] ({chunk['metadata']['company']} {chunk['metadata']['year']} 10-K, "
+                f"page {chunk['metadata']['page']})\n{wrap_document(chunk['text'])}"
+            )
+        evidence = "\n\n".join(guarded)
+        if withheld:
+            print(f"  (guards: {withheld} document(s) withheld as injection)", flush=True)
 
     return {
         "route": tool,
