@@ -20,6 +20,8 @@ DENSE_CANDIDATES = 40
 BM25_CANDIDATES = 60
 RERANK_POOL = 24
 
+_RERANK_WARNED = False
+
 
 def load_corpus() -> tuple[InMemoryVectorStore, BM25Index, list[dict]]:
     chunks = json.loads(
@@ -95,7 +97,25 @@ def retrieve(
         ]
 
     if mode == "hybrid_rerank":
-        from src.reranker import rerank
+        from src.reranker import rerank, rerank_available
+
+        if not rerank_available():
+            global _RERANK_WARNED
+            if not _RERANK_WARNED:
+                print(
+                    "  (reranker unavailable on this machine — degrading to hybrid)",
+                    flush=True,
+                )
+                _RERANK_WARNED = True
+            return [
+                {
+                    "text": store.texts[index],
+                    "metadata": store.metadatas[index],
+                    "index": index,
+                    "rrf_score": score,
+                }
+                for score, index in fused[:top_k]
+            ]
 
         candidate_texts = [store.texts[index] for _, index in fused]
         reranked = rerank(question, candidate_texts)
