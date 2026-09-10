@@ -40,6 +40,11 @@ def call_with_failover(models: list[str], make_call, label: str):
     """Try each model in order; a model whose daily quota is drained trips a
     circuit breaker and is skipped instantly for the rest of the process."""
     ordered = [m for m in dict.fromkeys(models) if m not in _drained_models]
+    if not ordered:
+        raise RuntimeError(
+            "all failover models have drained their daily quota — rerun after the "
+            "daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+        )
     last_error: Exception | None = None
     for position, model in enumerate(ordered):
         try:

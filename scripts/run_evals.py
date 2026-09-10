@@ -97,35 +97,58 @@ def print_table(summary: dict) -> None:
 
 
 def agent_eval(questions: list[dict], limit: int, use_judge: bool) -> list[dict]:
-    """Run full agent answers, grade deterministically, optionally judge."""
+    """Run full agent answers, grade deterministically, optionally judge.
+
+    Crash-tolerant: per-question errors are recorded, not fatal, and rows
+    persist incrementally so an interrupted run keeps its completed work.
+    """
+    results_path = config.EVALS_DIR / "agent_eval_results.json"
+    previous: dict[int, dict] = {}
+    if results_path.exists():
+        previous = {
+            row["id"]: row
+            for row in json.loads(results_path.read_text(encoding="utf-8"))
+        }
     rows: list[dict] = []
     for question in questions[:limit]:
+        prior = previous.get(question["id"])
+        if prior and "error" not in prior:
+            rows.append(prior)
+            print(f"  Q{question['id']}: cached", flush=True)
+            continue
         print(f"  Q{question['id']}: {question['question'][:60]}", flush=True)
-        result = answer([], question["question"], role=question.get("role", "employee"))
-        deterministic = answer_matches(
-            result["answer"],
-            question.get("expected_facts", []),
-            question.get("expect_refusal", False),
-        )
-        row = {
-            "id": question["id"],
-            "route": result["route"],
-            "expected_route": question.get("expected_route"),
-            "deterministic_pass": deterministic,
-        }
-        if use_judge:
-            row["judge"] = judge_answer(
-                question["question"],
+        try:
+            result = answer([], question["question"], role=question.get("role", "employee"))
+            deterministic = answer_matches(
                 result["answer"],
                 question.get("expected_facts", []),
                 question.get("expect_refusal", False),
             )
-            time.sleep(1.0)
+            row = {
+                "id": question["id"],
+                "route": result["route"],
+                "expected_route": question.get("expected_route"),
+                "deterministic_pass": deterministic,
+                "answer": result["answer"],
+            }
+            if use_judge:
+                row["judge"] = judge_answer(
+                    question["question"],
+                    result["answer"],
+                    question.get("expected_facts", []),
+                    question.get("expect_refusal", False),
+                )
+                time.sleep(1.0)
+            print(
+                f"    route={row['route']} pass={deterministic} judge={row.get('judge', '-')}",
+                flush=True,
+            )
+        except Exception as exc:
+            row = {"id": question["id"], "error": str(exc)[:200]}
+            print(f"    ERROR: {row['error']}", flush=True)
+            time.sleep(3)
         rows.append(row)
-        print(
-            f"    route={row['route']} pass={deterministic} judge={row.get('judge', '-')}",
-            flush=True,
-        )
+        results_path.write_text(json.dumps(rows, indent=1), encoding="utf-8")
         time.sleep(1.5)
     return rows
 
@@ -146,7 +169,7 @@ def main() -> None:
 
     if args.agent or args.judge:
         agent_rows = agent_eval(questions, args.limit, use_judge=args.judge)
-        graded = [row for row in agent_rows if row["deterministic_pass"]]
+        graded = [row for row in agent_rows if row.get("deterministic_pass")]
         print(f"\nagent deterministic pass rate: {len(graded)}/{len(agent_rows)}")
         judged = [row for row in agent_rows if "judge" in row and row["judge"]["correctness"] >= 0]
         if judged:

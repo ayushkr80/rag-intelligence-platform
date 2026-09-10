@@ -21,7 +21,7 @@ Examples:
 "Which supplier is shared by both companies?" -> graph
 "Who is NVIDIA led by?" -> graph
 "What was Microsoft's total revenue in fiscal 2024?" -> sql
-"How much dividend per share did Apple pay?" -> sql
+"How much dividend per share did Apple pay?" -> vector
 "Why did gross margin improve?" -> vector
 "What risks does Apple disclose about supply chain?" -> vector
 

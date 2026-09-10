@@ -23,7 +23,7 @@ SQL_PROMPT = """Write ONE SQLite SELECT query that answers the question.
 Table: financials(company TEXT, metric TEXT, segment TEXT, fiscal_year INTEGER, value REAL, unit TEXT, source_page INTEGER)
 - metric is one of: total_revenue, net_income, rnd_expense, dividends_per_share, segment_revenue
 - segment is one of: services, intelligent_cloud, productivity_and_business, data_center, gaming, professional_visualization, automotive, compute_networking, graphics, other — NULL for company-level metrics
-- NVIDIA's Data Center platform revenue is stored under segment='compute_networking'; Microsoft's cloud business is 'intelligent_cloud'; Apple's is 'services'
+- NVIDIA's Data Center platform revenue is stored under segment='compute_networking'; the value 'data_center' DOES NOT EXIST in this table — never filter on it. Microsoft's cloud business is 'intelligent_cloud'; Apple's is 'services'
 - fiscal years differ per company (Apple/Microsoft end 2024, NVIDIA ends 2025) — compute growth within each company's own years
 - unit: 'MUSD' (millions of USD) or 'USD_per_share'
 - companies: 'Apple Inc.', 'Microsoft Corporation', 'NVIDIA Corporation'
