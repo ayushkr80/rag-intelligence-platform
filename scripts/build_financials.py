@@ -52,6 +52,7 @@ Extract data rows as STRICT JSON — a list of objects, no markdown fences, no c
 
 Rules:
 - metric is one of: total_revenue, net_income, rnd_expense, dividends_per_share, segment_revenue
+- dividends_per_share: extract every per-share dividend figure you find (Capital Return Program sections, equity statements, dividend tables) for every fiscal year shown
 - segment (only for segment_revenue): services, intelligent_cloud, productivity_and_business, data_center, gaming, professional_visualization, automotive, compute_networking, graphics, other; null otherwise
 - NVIDIA's market platforms are data_center, gaming, professional_visualization, automotive; its reportable segments are compute_networking and graphics — use whichever the excerpt actually reports
 - value is a number: millions of USD (unit "MUSD"), or USD per share (unit "USD_per_share")

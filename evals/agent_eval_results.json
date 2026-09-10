@@ -25,11 +25,27 @@
  },
  {
   "id": 3,
-  "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google."
+  "route": "sql",
+  "expected_route": "sql",
+  "deterministic_pass": false,
+  "answer": "Not in the documents.",
+  "judge": {
+   "correctness": 0,
+   "faithfulness": 2,
+   "reasoning": "The model incorrectly refused to answer when the fact was expected, missing the target company NVIDIA."
+  }
  },
  {
   "id": 4,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "sql",
+  "expected_route": "vector",
+  "deterministic_pass": false,
+  "answer": "Not in the documents.",
+  "judge": {
+   "correctness": 0,
+   "faithfulness": 2,
+   "reasoning": "The answer fails to provide the required dividend figure of 0.98, incorrectly stating it is not in the documents."
+  }
  },
  {
   "id": 5,
@@ -81,7 +97,15 @@
  },
  {
   "id": 9,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "graph",
+  "expected_route": "graph",
+  "deterministic_pass": true,
+  "answer": "NVIDIA is led by:\n* Jen-Hsun Huang [18]\n* Colette M. Kress [18]\n* Ajay K. Puri [18]\n* Debora Shoquist [18]\n* Timothy S. Teter [18]",
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 1,
+   "reasoning": "The answer includes the key required individuals (Huang and Kress) but also lists additional people not mentioned in the ground truth."
+  }
  },
  {
   "id": 10,
@@ -97,11 +121,19 @@
  },
  {
   "id": 11,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "sql",
+  "expected_route": "sql",
+  "deterministic_pass": true,
+  "answer": "Apple's net income in fiscal year 2023 was 96,995.0 [0].",
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 2,
+   "reasoning": "The answer accurately provides the correct net income figure of 96,995 for Apple in fiscal 2023."
+  }
  },
  {
   "id": 12,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google."
  },
  {
   "id": 13,
@@ -121,11 +153,27 @@
  },
  {
   "id": 17,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "vector",
+  "expected_route": "vector",
+  "deterministic_pass": true,
+  "answer": "Not in the documents.",
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 2,
+   "reasoning": "The answer correctly and faithfully states that the information is not in the documents, which matches the expected refusal."
+  }
  },
  {
   "id": 18,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "vector",
+  "expected_route": "vector",
+  "deterministic_pass": true,
+  "answer": "Not in the documents.",
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 2,
+   "reasoning": "The answer correctly and accurately refuses to answer since the requested information is not in the documents."
+  }
  },
  {
   "id": 19,

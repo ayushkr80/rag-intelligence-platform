@@ -130,6 +130,7 @@ def agent_eval(questions: list[dict], limit: int, use_judge: bool) -> list[dict]
                 "expected_route": question.get("expected_route"),
                 "deterministic_pass": deterministic,
                 "answer": result["answer"],
+                "sql_debug": result.get("sql_debug"),
             }
             if use_judge:
                 row["judge"] = judge_answer(

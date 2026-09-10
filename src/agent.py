@@ -10,7 +10,7 @@ from src import config
 from src.embeddings import embed_query_cached
 from src.generator import generate_answer
 from src.graph_tool import query as query_graph
-from src.guards import detect_injection, wrap_document
+from src.guards import redact_injection, wrap_document
 from src.query_rewriter import rewrite_query
 from src.retrieval import load_corpus, retrieve
 from src.router import route
@@ -75,26 +75,25 @@ def answer(
             store,
             bm25,
             config.RAG_MODE,
+            top_k=6,
             role=role,
         )
         guarded = []
-        withheld = 0
+        redacted_total = 0
         for i, chunk in enumerate(results):
-            if detect_injection(chunk["text"]):
-                withheld += 1
-                guarded.append(
-                    f"[{i}] ({chunk['metadata']['company']} {chunk['metadata']['year']} "
-                    f"10-K, page {chunk['metadata']['page']}) — "
-                    "WITHHELD: injection pattern detected in this document."
-                )
-                continue
-            guarded.append(
-                f"[{i}] ({chunk['metadata']['company']} {chunk['metadata']['year']} 10-K, "
-                f"page {chunk['metadata']['page']})\n{wrap_document(chunk['text'])}"
+            clean_text, removed = redact_injection(chunk["text"])
+            redacted_total += removed
+            tag = (
+                f"[{i}] ({chunk['metadata']['company']} {chunk['metadata']['year']} "
+                f"10-K, page {chunk['metadata']['page']}; {removed} injected line(s) removed)"
+                if removed
+                else f"[{i}] ({chunk['metadata']['company']} {chunk['metadata']['year']} "
+                f"10-K, page {chunk['metadata']['page']})"
             )
+            guarded.append(f"{tag}\n{wrap_document(clean_text)}")
         evidence = "\n\n".join(guarded)
-        if withheld:
-            print(f"  (guards: {withheld} document(s) withheld as injection)", flush=True)
+        if redacted_total:
+            print(f"  (guards: {redacted_total} injected line(s) redacted)", flush=True)
 
     return {
         "route": tool,

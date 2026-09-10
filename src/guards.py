@@ -26,6 +26,21 @@ def detect_injection(text: str) -> bool:
     return any(re.search(pattern, lowered) for pattern in INJECTION_PATTERNS)
 
 
+def redact_injection(text: str) -> tuple[str, int]:
+    """Strip lines carrying injection payloads; keep the benign rest.
+
+    Redaction beats whole-document withholding: the poison leaves, the
+    legitimate content stays usable. Returns (clean_text, lines_removed).
+    """
+    kept = [
+        line
+        for line in text.splitlines()
+        if not any(re.search(pattern, line.lower()) for pattern in INJECTION_PATTERNS)
+    ]
+    removed = len(text.splitlines()) - len(kept)
+    return "\n".join(kept).strip(), removed
+
+
 def wrap_document(text: str) -> str:
     """Fence text as untrusted data for the generation prompt."""
     return f"<document>\n{text}\n</document>"

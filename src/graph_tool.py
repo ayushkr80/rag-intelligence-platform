@@ -44,11 +44,15 @@ def find_entities(question: str, graph: nx.Graph) -> list[str]:
 def neighborhood_triples(
     graph: nx.Graph, entities: list[str], max_hops: int = MAX_HOPS
 ) -> list[tuple[str, str, str, int]]:
-    """Collect edges within max_hops of the matched entities."""
-    triples: list[tuple[str, str, str, int]] = []
+    """Collect edges within max_hops of the matched entities.
+
+    Direct edges (hop 1) always rank before hop-2 context, then by page —
+    so one noisy neighbor can never evict the matched entity's own facts.
+    """
+    scored: list[tuple[int, int, str, str, str]] = []
     seen: set[tuple[str, str, str]] = set()
     current = set(entities)
-    for _ in range(max_hops):
+    for hop in range(1, max_hops + 1):
         next_nodes: set[str] = set()
         for node in current:
             for neighbor, edge_data in graph[node].items():
@@ -57,11 +61,16 @@ def neighborhood_triples(
                 if key in seen:
                     continue
                 seen.add(key)
-                triples.append((node, relation, neighbor, edge_data.get("source_page", 0)))
+                scored.append(
+                    (hop, edge_data.get("source_page", 0), node, relation, neighbor)
+                )
                 next_nodes.add(neighbor)
         current = next_nodes
-    triples.sort(key=lambda triple: triple[3])
-    return triples[:MAX_TRIPLES]
+    scored.sort(key=lambda item: (item[0], item[1]))
+    return [
+        (subject, relation, obj, page)
+        for hop, page, subject, relation, obj in scored[:MAX_TRIPLES]
+    ]
 
 
 def query(question: str) -> dict:

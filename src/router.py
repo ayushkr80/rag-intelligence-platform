@@ -13,16 +13,18 @@ TOOLS = ("vector", "sql", "graph")
 
 ROUTE_PROMPT = """Classify the question to exactly one retrieval tool.
 
-- vector: meaning-based search over document text. Best for explanations, definitions, qualitative discussion, risk factors, "why" questions.
-- sql: exact numbers from a structured financial table (revenue, net income, R&D spend, dividends, segment revenues by fiscal year). Best for "how much" questions, comparisons across companies or years, growth rates.
+- vector: meaning-based search over document text. Best for explanations, definitions, qualitative discussion, risk factors, "why" questions. Also for dividend-per-share questions (the SQL table does not contain them).
+- sql: exact numbers from a structured financial table (revenue, net income, R&D spend, segment revenues by fiscal year). Best for "how much" questions, comparisons across companies or years, growth rates.
 - graph: lookup over a knowledge graph of companies, people, products, segments, suppliers, locations. Best for multi-hop relational questions — shared suppliers, who is led by whom, which company makes what, where companies are headquartered.
 
 Examples:
 "Which supplier is shared by both companies?" -> graph
 "Who is NVIDIA led by?" -> graph
 "What was Microsoft's total revenue in fiscal 2024?" -> sql
+"Which company grew its data center business fastest?" -> sql
 "How much dividend per share did Apple pay?" -> vector
 "Why did gross margin improve?" -> vector
+"What was Apple's gross margin percentage?" -> vector
 "What risks does Apple disclose about supply chain?" -> vector
 
 Question: {question}
