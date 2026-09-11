@@ -44,10 +44,12 @@ contribution to accuracy, faithfulness, and context precision.)*
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate        # Windows
+.venv\Scripts\activate        # Windows (then plain `python` uses the venv)
 pip install -r requirements.txt
 copy .env.example .env        # then add your API key
 ```
+
+Always run modules with the venv interpreter: `.venv\Scripts\python -m scripts.chat`
 
 ## Roadmap
 
