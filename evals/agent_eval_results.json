@@ -133,23 +133,175 @@
  },
  {
   "id": 12,
-  "error": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google."
+  "route": "sql",
+  "expected_route": "sql",
+  "deterministic_pass": true,
+  "answer": "Microsoft spent 29,510.0 on R&D in fiscal year 2024 [0].",
+  "sql_debug": {
+   "sql": "SELECT value FROM financials WHERE company = 'Microsoft Corporation' AND metric = 'rnd_expense' AND fiscal_year = 2024",
+   "rows": [
+    [
+     29510.0
+    ]
+   ]
+  },
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 2,
+   "reasoning": "The answer correctly identifies the R&D spend of 29,510 (expressed as 29,510.0) for fiscal year 2024, which aligns perfectly with the ground truth."
+  }
  },
  {
   "id": 13,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "sql",
+  "expected_route": "sql",
+  "deterministic_pass": true,
+  "answer": "To determine which company spent more on R&D as a percentage of total revenue, we calculate the percentages for each company based on the provided data [0]:\n\n### **1. Apple Inc.**\n* **FY 2022:** $26,251 / $394,328 \u2248 **6.66%**\n* **FY 2023:** $29,915 / $383,285 \u2248 **7.80%**\n* **FY 2024:** $31,370 / $391,035 \u2248 **8.02%**\n* **Total (2022\u20132024):** $87,536 / $1,168,648 \u2248 **7.49%**\n\n### **2. Microsoft Corporation**\n* **FY 2022:** $24,512 / $198,270 \u2248 **12.36%**\n* **FY 2023:** $27,195 / $211,915 \u2248 **12.83%**\n* **FY 2024:** $29,510 / $245,122 \u2248 **12.04%**\n* **Total (2022\u20132024):** $81,217 / $655,307 \u2248 **12.39%**\n\n### **3. NVIDIA Corporation**\n* **FY 2024:** $8,675 / $60,922 \u2248 **14.24%**\n* **FY 2025:** $12,914 / $130,497 \u2248 **9.90%**\n* **Total (2024\u20132025):** $21,589 / $191,419 \u2248 **11.28%**\n\n---\n\n### **Summary Comparison [0]:**\n* **Highest single-year percentage:** **NVIDIA Corporation** in FY 2024 (**14.24%**).\n* **Highest in the overlapping fiscal year (FY 2024):** **NVIDIA Corporation** (**14.24%**), followed by Microsoft (12.04%) and Apple (8.02%).\n* **Highest overall multi-year average:** **Microsoft Corporation** (**12.39%** total across 2022\u20132024), followed by NVIDIA (11.28% total across 2024\u20132025) and Apple (7.49% total across 2022\u20132024).",
+  "sql_debug": {
+   "sql": "SELECT company, fiscal_year, metric, value FROM financials WHERE metric IN ('rnd_expense', 'total_revenue') ORDER BY company, fiscal_year, metric",
+   "rows": [
+    [
+     "Apple Inc.",
+     2022,
+     "rnd_expense",
+     26251.0
+    ],
+    [
+     "Apple Inc.",
+     2022,
+     "total_revenue",
+     394328.0
+    ],
+    [
+     "Apple Inc.",
+     2023,
+     "rnd_expense",
+     29915.0
+    ],
+    [
+     "Apple Inc.",
+     2023,
+     "total_revenue",
+     383285.0
+    ],
+    [
+     "Apple Inc.",
+     2024,
+     "rnd_expense",
+     31370.0
+    ],
+    [
+     "Apple Inc.",
+     2024,
+     "total_revenue",
+     391035.0
+    ],
+    [
+     "Microsoft Corporation",
+     2022,
+     "rnd_expense",
+     24512.0
+    ],
+    [
+     "Microsoft Corporation",
+     2022,
+     "total_revenue",
+     198270.0
+    ],
+    [
+     "Microsoft Corporation",
+     2023,
+     "rnd_expense",
+     27195.0
+    ],
+    [
+     "Microsoft Corporation",
+     2023,
+     "total_revenue",
+     211915.0
+    ],
+    [
+     "Microsoft Corporation",
+     2024,
+     "rnd_expense",
+     29510.0
+    ],
+    [
+     "Microsoft Corporation",
+     2024,
+     "total_revenue",
+     245122.0
+    ],
+    [
+     "NVIDIA Corporation",
+     2024,
+     "rnd_expense",
+     8675.0
+    ],
+    [
+     "NVIDIA Corporation",
+     2024,
+     "total_revenue",
+     60922.0
+    ],
+    [
+     "NVIDIA Corporation",
+     2025,
+     "rnd_expense",
+     12914.0
+    ],
+    [
+     "NVIDIA Corporation",
+     2025,
+     "total_revenue",
+     130497.0
+    ]
+   ]
+  },
+  "judge": {
+   "correctness": 1,
+   "faithfulness": 2,
+   "reasoning": "The answer contains the ground truth fact 'Microsoft' by identifying it as having the highest overall multi-year average, but it is only partially correct as it also attributes the highest percentage to NVIDIA for specific timeframes."
+  }
  },
  {
   "id": 14,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "vector",
+  "expected_route": "vector",
+  "deterministic_pass": false,
+  "answer": "In fiscal year 2024, Apple's total gross margin percentage was 46.2% (with Products gross margin percentage at 37.2% and Services gross margin percentage at 73.9%) [0].",
+  "sql_debug": null,
+  "judge": {
+   "correctness": 0,
+   "faithfulness": 0,
+   "reasoning": "The answer states the gross margin percentage was 46.2%, which is incorrect and directly contradicts the ground truth value of 58.3%."
+  }
  },
  {
   "id": 15,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "vector",
+  "expected_route": "vector",
+  "deterministic_pass": true,
+  "answer": "NVIDIA routinely assesses its high-risk suppliers' conformance to industry standards such as ISO 27001, ISO 28001, and C-TPAT [0][1].",
+  "sql_debug": null,
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 2,
+   "reasoning": "The answer correctly identifies ISO (specifically ISO 27001 and ISO 28001) as the standards NVIDIA assesses its suppliers against, which fully contains the ground truth fact."
+  }
  },
  {
   "id": 16,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "vector",
+  "expected_route": "vector",
+  "deterministic_pass": false,
+  "answer": "Based on the provided context, NVIDIA's vendor risk assessment process involves the following key practices:\n\n* **Evaluating Cybersecurity Risks:** NVIDIA assesses cybersecurity risks when working with third parties that have access to confidential and sensitive company information [0][2].\n* **Supplier Questionnaires:** Depending on the nature and sensitivity of the supplier and the data being processed, NVIDIA distributes and reviews supplier questionnaires [0][2].\n* **Security Controls:** NVIDIA takes steps to ensure vendors implement data privacy and security controls tailored to mitigate their associated risks [0][2].\n* **Standard Conformance & Assessments:** NVIDIA routinely assesses high-risk suppliers for conformance to industry standards (such as ISO 27001, ISO 28001, and C-TPAT) and evaluates them for additional physical, product, and information security requirements [0][2].\n\n*(Note: Apple also maintains procedures to monitor and limit credit risk exposure on vendor non-trade receivables and prepayments [3][4].)*",
+  "sql_debug": null,
+  "judge": {
+   "correctness": 0,
+   "faithfulness": 0,
+   "reasoning": "The answer is completely incorrect as it fails to mention the required ground truth fact 'integration milestone' and instead describes unrelated vendor assessment practices for NVIDIA and Apple."
+  }
  },
  {
   "id": 17,
@@ -177,30 +329,95 @@
  },
  {
   "id": 19,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "vector",
+  "expected_route": "vector",
+  "deterministic_pass": false,
+  "answer": "According to the documents, Apple's Products gross margin and Products gross margin percentage increased in fiscal 2024 compared to 2023 due to cost savings, which were partially offset by a different Products mix and the weakness in foreign currencies relative to the U.S. dollar [0].",
+  "sql_debug": null,
+  "judge": {
+   "correctness": 0,
+   "faithfulness": 0,
+   "reasoning": "The answer does not mention the required ground truth fact 'cloud' and instead attributes the gross margin improvement to cost savings and other factors."
+  }
  },
  {
   "id": 20,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "vector",
+  "expected_route": "vector",
+  "deterministic_pass": true,
+  "answer": "Based on the provided documents, Apple's fiscal year policy includes the following:\n\n* **Definition:** Apple's fiscal year is a 52- or 53-week period that ends on the last Saturday of September [0][1][2].\n* **Quarter Realignment:** An additional week is added to the first fiscal quarter every five or six years to realign the fiscal quarters with calendar quarters (for example, in the first quarter of fiscal year 2023) [0][1].\n* **Duration:** Fiscal years 2022 and 2024 each spanned 52 weeks, while fiscal year 2023 spanned 53 weeks [0][1].\n* **Reporting References:** Unless otherwise stated, references to specific years, quarters, months, and periods refer to Apple's fiscal years ending in September and the associated periods of those fiscal years [1][2].",
+  "sql_debug": null,
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 2,
+   "reasoning": "The answer accurately states that Apple's fiscal year is a 52- or 53-week period, successfully including both required ground truth facts."
+  }
  },
  {
   "id": 21,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "graph",
+  "expected_route": "graph",
+  "deterministic_pass": false,
+  "answer": "Based on the provided facts, NVIDIA's competitors are:\n\n* Advanced Micro Devices, Inc. [12]\n* Alibaba Group [12]\n* Alphabet Inc. [12]\n* Amazon, Inc. [12]\n* Baidu, Inc. [12]\n* Huawei Technologies Co. Ltd. [12]\n* Intel Corporation [12]\n* Microsoft Corporation [12]",
+  "sql_debug": null,
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 0,
+   "reasoning": "The answer contains the key ground truth competitors (AMD and Intel), but it also lists several other companies that are not supported by the ground truth facts."
+  }
  },
  {
   "id": 22,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "sql",
+  "expected_route": "sql",
+  "deterministic_pass": true,
+  "answer": "Microsoft's net income in fiscal 2024 was 88136.0 [0].",
+  "sql_debug": {
+   "sql": "SELECT value FROM financials WHERE company = 'Microsoft Corporation' AND metric = 'net_income' AND fiscal_year = 2024",
+   "rows": [
+    [
+     88136.0
+    ]
+   ]
+  },
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 2,
+   "reasoning": "The answer accurately states the net income matching the ground truth value."
+  }
  },
  {
   "id": 23,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "sql",
+  "expected_route": "vector",
+  "deterministic_pass": false,
+  "answer": "Based on the provided context, the segment that generated the most revenue for Apple in fiscal 2024 is **other** (with a value of 167,045.0) [0].",
+  "sql_debug": {
+   "sql": "SELECT segment, value FROM financials WHERE company = 'Apple Inc.' AND fiscal_year = 2024 AND metric = 'segment_revenue' ORDER BY value DESC LIMIT 1",
+   "rows": [
+    [
+     "other",
+     167045.0
+    ]
+   ]
+  },
+  "judge": {
+   "correctness": 0,
+   "faithfulness": 0,
+   "reasoning": "The answer incorrectly identifies 'other' instead of the Americas as the top revenue-generating segment."
+  }
  },
  {
   "id": 24,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
- },
- {
-  "id": 25,
-  "error": "all failover models have drained their daily quota \u2014 rerun after the daily reset (midnight Pacific) or add models to FALLBACK_MODELS"
+  "route": "graph",
+  "expected_route": "graph",
+  "deterministic_pass": true,
+  "answer": "Based on the provided documents, Microsoft's Experiences and Devices segment includes:\n\n* Microsoft 365 [20]\n* Windows [20]\n* Microsoft Teams [20]\n* Surface [20]",
+  "sql_debug": null,
+  "judge": {
+   "correctness": 2,
+   "faithfulness": 1,
+   "reasoning": "The answer includes all required ground truth facts (Windows and Surface), but also lists additional products not specified in the ground truth."
+  }
  }
 ]
