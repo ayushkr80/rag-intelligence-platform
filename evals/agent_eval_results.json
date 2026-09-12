@@ -386,106 +386,13 @@
   "id": 19,
   "route": "vector",
   "expected_route": "vector",
-  "deterministic_pass": false,
-  "answer": "Apple's gross margin and gross margin percentages improved in fiscal 2024 due to the following factors:\n\n* **Products Gross Margin and Percentage:** Increased due to cost savings, which were partially offset by a different Products mix and the weakness in foreign currencies relative to the U.S. dollar [1][3].\n* **Services Gross Margin:** Increased primarily due to higher Services net sales [1].\n* **Services Gross Margin Percentage:** Increased due to a different Services mix [1].",
-  "sql_debug": null,
-  "judge": {
-   "correctness": 0,
-   "faithfulness": 0,
-   "reasoning": "The answer fails to mention the key ground truth fact 'cloud' and instead lists other factors not supported by the ground truth."
-  }
- },
- {
-  "id": 20,
-  "route": "vector",
-  "expected_route": "vector",
   "deterministic_pass": true,
-  "answer": "Based on the provided documents, Apple's fiscal year policy includes the following:\n\n* **Definition:** Apple's fiscal year is a 52- or 53-week period that ends on the last Saturday of September [0][1][2].\n* **Quarter Realignment:** An additional week is added to the first fiscal quarter every five or six years to realign the fiscal quarters with calendar quarters (for example, in the first quarter of fiscal year 2023) [0][1].\n* **Duration:** Fiscal years 2022 and 2024 each spanned 52 weeks, while fiscal year 2023 spanned 53 weeks [0][1].\n* **Reporting References:** Unless otherwise stated, references to specific years, quarters, months, and periods refer to Apple's fiscal years ending in September and the associated periods of those fiscal years [1][2].",
+  "answer": "Apple's gross margin improved in fiscal 2024 due to the following reasons:\n\n* **Products gross margin and Products gross margin percentage:** Increased due to cost savings, which were partially offset by a different Products mix and the weakness of foreign currencies relative to the U.S. dollar [1][3].\n* **Services gross margin:** Increased primarily due to higher Services net sales [1].\n* **Services gross margin percentage:** Increased due to a different Services mix [1].",
   "sql_debug": null,
   "judge": {
    "correctness": 2,
    "faithfulness": 2,
-   "reasoning": "The answer accurately states that Apple's fiscal year is a 52- or 53-week period, successfully including both required ground truth facts."
-  }
- },
- {
-  "id": 21,
-  "route": "graph",
-  "expected_route": "graph",
-  "deterministic_pass": true,
-  "answer": "Based on the provided context, NVIDIA's competitors are:\n\n* Microsoft Corporation [12]\n* Advanced Micro Devices, Inc. [12]\n* Huawei Technologies Co. Ltd. [12]\n* Intel Corporation [12]\n* Alibaba Group [12]\n* Alphabet Inc. [12]\n* Amazon, Inc. [12]\n* Baidu, Inc. [12]",
-  "sql_debug": null,
-  "judge": {
-   "correctness": 2,
-   "faithfulness": 1,
-   "reasoning": "The answer correctly includes the ground truth competitors, Intel and AMD, but also lists several other companies not mentioned in the ground truth facts."
-  }
- },
- {
-  "id": 22,
-  "route": "sql",
-  "expected_route": "sql",
-  "deterministic_pass": true,
-  "answer": "Microsoft's net income in fiscal 2024 was 88136.0 [0].",
-  "sql_debug": {
-   "sql": "SELECT value FROM financials WHERE company = 'Microsoft Corporation' AND metric = 'net_income' AND fiscal_year = 2024",
-   "rows": [
-    [
-     88136.0
-    ]
-   ]
-  },
-  "judge": {
-   "correctness": 2,
-   "faithfulness": 2,
-   "reasoning": "The answer accurately states the net income matching the ground truth value."
-  }
- },
- {
-  "id": 23,
-  "route": "sql",
-  "expected_route": "sql",
-  "deterministic_pass": true,
-  "answer": "The Americas segment generated the most revenue for Apple in fiscal year 2024, with a value of 167,045.0 [0].",
-  "sql_debug": {
-   "sql": "SELECT segment, value FROM financials WHERE company = 'Apple Inc.' AND metric = 'segment_revenue' AND fiscal_year = 2024 ORDER BY value DESC LIMIT 1",
-   "rows": [
-    [
-     "americas",
-     167045.0
-    ]
-   ]
-  },
-  "judge": {
-   "correctness": 2,
-   "faithfulness": 2,
-   "reasoning": "The answer correctly identifies the 'Americas' segment as the top revenue generator, matching the ground truth, and provides accurate supporting details."
-  }
- },
- {
-  "id": 24,
-  "route": "graph",
-  "expected_route": "graph",
-  "deterministic_pass": true,
-  "answer": "Based on the provided documents, Microsoft's Experiences and Devices segment includes:\n\n* Microsoft 365 [20]\n* Windows [20]\n* Microsoft Teams [20]\n* Surface [20]",
-  "sql_debug": null,
-  "judge": {
-   "correctness": 2,
-   "faithfulness": 1,
-   "reasoning": "The answer includes all required ground truth facts (Windows and Surface), but also lists additional products not specified in the ground truth."
-  }
- },
- {
-  "id": 25,
-  "route": "graph",
-  "expected_route": "graph",
-  "deterministic_pass": true,
-  "answer": "NVIDIA Corporation is headquartered in Santa Clara, California [0].",
-  "sql_debug": null,
-  "judge": {
-   "correctness": 2,
-   "faithfulness": 2,
-   "reasoning": "The answer correctly identifies Santa Clara as NVIDIA's headquarters, which perfectly matches the ground truth fact."
+   "reasoning": "The answer correctly identifies cost savings as a key reason for the improvement in gross margin and provides detailed context."
   }
  }
 ]

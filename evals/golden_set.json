@@ -1,31 +1,413 @@
 {
-  "version": 1,
-  "note": "Golden set: hand-verified questions. expected_facts are case-insensitive substrings (commas/$ stripped). source_hints drive retrieval hit metrics. Extend freely; keep answers verifiable against the filings.",
-  "questions": [
-    {"id": 1, "question": "How much revenue did Apple's Services segment generate in fiscal 2024?", "category": "numeric", "role": "employee", "expected_route": "sql", "expected_facts": ["96169"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc.", "page": 32}, {"company": "Apple Inc.", "page": 46}]},
-    {"id": 2, "question": "What was Microsoft's total revenue in fiscal year 2024?", "category": "numeric", "role": "employee", "expected_route": "sql", "expected_facts": ["245122"], "expect_refusal": false, "source_hints": [{"company": "Microsoft Corporation", "page": 79}, {"company": "Microsoft Corporation", "page": 131}]},
-    {"id": 3, "question": "Which company grew its cloud or data center business fastest?", "category": "comparison", "role": "employee", "expected_route": "sql", "expected_facts": ["NVIDIA"], "expect_refusal": false, "source_hints": []},
-    {"id": 4, "question": "How much dividend per share did Apple pay in 2024?", "category": "numeric", "role": "employee", "expected_route": "vector", "expected_facts": ["0.98"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc.", "page": 36}, {"company": "Apple Inc.", "page": 43}]},
-    {"id": 5, "question": "Which suppliers does NVIDIA depend on?", "category": "multi_hop", "role": "employee", "expected_route": "graph", "expected_facts": ["Taiwan Semiconductor", "Samsung"], "expect_refusal": false, "source_hints": [{"company": "NVIDIA Corporation", "page": 12}]},
-    {"id": 6, "question": "Do Apple, Microsoft and NVIDIA share the same suppliers?", "category": "multi_hop", "role": "employee", "expected_route": "graph", "expected_facts": [], "expect_refusal": true, "source_hints": []},
-    {"id": 7, "question": "Why did NVIDIA's revenue grow so much in fiscal 2025?", "category": "explanatory", "role": "employee", "expected_route": "vector", "expected_facts": ["Data Center"], "expect_refusal": false, "source_hints": [{"company": "NVIDIA Corporation", "page": 59}]},
-    {"id": 8, "question": "What risks does Apple disclose about its supply chain?", "category": "explanatory", "role": "employee", "expected_route": "vector", "expected_facts": ["supplier"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc."}]},
-    {"id": 9, "question": "Who is NVIDIA led by?", "category": "multi_hop", "role": "employee", "expected_route": "graph", "expected_facts": ["Kress", "Huang"], "expect_refusal": false, "source_hints": [{"company": "NVIDIA Corporation", "page": 18}]},
-    {"id": 10, "question": "Where is Apple headquartered?", "category": "factoid", "role": "employee", "expected_route": "graph", "expected_facts": ["Cupertino"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc.", "page": 0}]},
-    {"id": 11, "question": "What was Apple's net income in fiscal 2023?", "category": "numeric", "role": "employee", "expected_route": "sql", "expected_facts": ["96995"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc.", "page": 40}]},
-    {"id": 12, "question": "How much did Microsoft spend on R&D in fiscal 2024?", "category": "numeric", "role": "employee", "expected_route": "sql", "expected_facts": ["29510"], "expect_refusal": false, "source_hints": [{"company": "Microsoft Corporation", "page": 79}]},
-    {"id": 13, "question": "Which company spent more on R&D as a percentage of revenue?", "category": "comparison", "role": "employee", "expected_route": "sql", "expected_facts": ["Microsoft"], "expect_refusal": false, "source_hints": []},
-    {"id": 14, "question": "What was Apple's gross margin percentage in fiscal 2024?", "category": "numeric", "role": "employee", "expected_route": "vector", "expected_facts": ["58.3"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc.", "page": 33}]},
-    {"id": 15, "question": "What cybersecurity standards does NVIDIA assess its suppliers against?", "category": "explanatory", "role": "employee", "expected_route": "vector", "expected_facts": ["ISO"], "expect_refusal": false, "source_hints": [{"company": "NVIDIA Corporation"}]},
-    {"id": 16, "question": "Summarize the vendor assessment document.", "category": "security", "role": "analyst", "expected_route": "vector", "expected_facts": ["integration milestone"], "expect_refusal": false, "source_hints": [{"company": "Vendor Documents"}]},
-    {"id": 17, "question": "What does Apple's Summary Compensation Table show?", "category": "permission", "role": "analyst", "expected_route": "vector", "expected_facts": [], "expect_refusal": true, "source_hints": []},
-    {"id": 18, "question": "What internal memos exist about supplier diversification?", "category": "permission", "role": "analyst", "expected_route": "vector", "expected_facts": [], "expect_refusal": true, "source_hints": []},
-    {"id": 19, "question": "Why did Apple's gross margin improve in fiscal 2024?", "category": "explanatory", "role": "employee", "expected_route": "vector", "expected_facts": ["cloud"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc.", "page": 33}]},
-    {"id": 20, "question": "What is Apple's fiscal year policy?", "category": "factoid", "role": "employee", "expected_route": "vector", "expected_facts": ["52", "53"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc."}]},
-    {"id": 21, "question": "Who are NVIDIA's competitors?", "category": "multi_hop", "role": "employee", "expected_route": "graph", "expected_facts": ["Intel Corporation", "Advanced Micro Devices"], "expect_refusal": false, "source_hints": [{"company": "NVIDIA Corporation", "page": 12}]},
-    {"id": 22, "question": "What was Microsoft's net income in fiscal 2024?", "category": "numeric", "role": "employee", "expected_route": "sql", "expected_facts": ["88136"], "expect_refusal": false, "source_hints": [{"company": "Microsoft Corporation", "page": 79}]},
-    {"id": 23, "question": "Which geographic segment generated the most revenue for Apple in fiscal 2024?", "category": "comparison", "role": "employee", "expected_route": "sql", "expected_facts": ["Americas"], "expect_refusal": false, "source_hints": [{"company": "Apple Inc.", "page": 31}]},
-    {"id": 24, "question": "What products does Microsoft's Experiences and Devices segment include?", "category": "multi_hop", "role": "employee", "expected_route": "graph", "expected_facts": ["Windows", "Surface"], "expect_refusal": false, "source_hints": [{"company": "Microsoft Corporation", "page": 20}]},
-    {"id": 25, "question": "Where is NVIDIA headquartered?", "category": "multi_hop", "role": "employee", "expected_route": "graph", "expected_facts": ["Santa Clara"], "expect_refusal": false, "source_hints": [{"company": "NVIDIA Corporation", "page": 0}]}
-  ]
+ "version": 1,
+ "note": "Golden set: hand-verified questions. expected_facts are case-insensitive substrings (commas/$ stripped). source_hints drive retrieval hit metrics. Extend freely; keep answers verifiable against the filings.",
+ "questions": [
+  {
+   "id": 1,
+   "question": "How much revenue did Apple's Services segment generate in fiscal 2024?",
+   "category": "numeric",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "96169"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc.",
+     "page": 32
+    },
+    {
+     "company": "Apple Inc.",
+     "page": 46
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "question": "What was Microsoft's total revenue in fiscal year 2024?",
+   "category": "numeric",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "245122"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Microsoft Corporation",
+     "page": 79
+    },
+    {
+     "company": "Microsoft Corporation",
+     "page": 131
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "question": "Which company grew its cloud or data center business fastest?",
+   "category": "comparison",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "NVIDIA"
+   ],
+   "expect_refusal": false,
+   "source_hints": []
+  },
+  {
+   "id": 4,
+   "question": "How much dividend per share did Apple pay in 2024?",
+   "category": "numeric",
+   "role": "employee",
+   "expected_route": "vector",
+   "expected_facts": [
+    "0.98"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc.",
+     "page": 36
+    },
+    {
+     "company": "Apple Inc.",
+     "page": 43
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "question": "Which suppliers does NVIDIA depend on?",
+   "category": "multi_hop",
+   "role": "employee",
+   "expected_route": "graph",
+   "expected_facts": [
+    "Taiwan Semiconductor",
+    "Samsung"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "NVIDIA Corporation",
+     "page": 12
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "question": "Do Apple, Microsoft and NVIDIA share the same suppliers?",
+   "category": "multi_hop",
+   "role": "employee",
+   "expected_route": "graph",
+   "expected_facts": [],
+   "expect_refusal": true,
+   "source_hints": []
+  },
+  {
+   "id": 7,
+   "question": "Why did NVIDIA's revenue grow so much in fiscal 2025?",
+   "category": "explanatory",
+   "role": "employee",
+   "expected_route": "vector",
+   "expected_facts": [
+    "Data Center"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "NVIDIA Corporation",
+     "page": 59
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "question": "What risks does Apple disclose about its supply chain?",
+   "category": "explanatory",
+   "role": "employee",
+   "expected_route": "vector",
+   "expected_facts": [
+    "supplier"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc."
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "question": "Who is NVIDIA led by?",
+   "category": "multi_hop",
+   "role": "employee",
+   "expected_route": "graph",
+   "expected_facts": [
+    "Kress",
+    "Huang"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "NVIDIA Corporation",
+     "page": 18
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "question": "Where is Apple headquartered?",
+   "category": "factoid",
+   "role": "employee",
+   "expected_route": "graph",
+   "expected_facts": [
+    "Cupertino"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc.",
+     "page": 0
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "question": "What was Apple's net income in fiscal 2023?",
+   "category": "numeric",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "96995"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc.",
+     "page": 40
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "question": "How much did Microsoft spend on R&D in fiscal 2024?",
+   "category": "numeric",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "29510"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Microsoft Corporation",
+     "page": 79
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "question": "Which company spent more on R&D as a percentage of revenue?",
+   "category": "comparison",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "Microsoft"
+   ],
+   "expect_refusal": false,
+   "source_hints": []
+  },
+  {
+   "id": 14,
+   "question": "What was Apple's gross margin percentage in fiscal 2024?",
+   "category": "numeric",
+   "role": "employee",
+   "expected_route": "vector",
+   "expected_facts": [
+    "46.2"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc.",
+     "page": 33
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "question": "What cybersecurity standards does NVIDIA assess its suppliers against?",
+   "category": "explanatory",
+   "role": "employee",
+   "expected_route": "vector",
+   "expected_facts": [
+    "ISO"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "NVIDIA Corporation"
+    }
+   ]
+  },
+  {
+   "id": 16,
+   "question": "Summarize the vendor assessment document.",
+   "category": "security",
+   "role": "analyst",
+   "expected_route": "vector",
+   "expected_facts": [
+    "integration milestone"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Vendor Documents"
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "question": "What does Apple's Summary Compensation Table show?",
+   "category": "permission",
+   "role": "analyst",
+   "expected_route": "vector",
+   "expected_facts": [],
+   "expect_refusal": true,
+   "source_hints": []
+  },
+  {
+   "id": 18,
+   "question": "What internal memos exist about supplier diversification?",
+   "category": "permission",
+   "role": "analyst",
+   "expected_route": "vector",
+   "expected_facts": [],
+   "expect_refusal": true,
+   "source_hints": []
+  },
+  {
+   "id": 19,
+   "question": "Why did Apple's gross margin improve in fiscal 2024?",
+   "category": "explanatory",
+   "role": "employee",
+   "expected_route": "vector",
+   "expected_facts": [
+    "cost savings"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc.",
+     "page": 33
+    }
+   ]
+  },
+  {
+   "id": 20,
+   "question": "What is Apple's fiscal year policy?",
+   "category": "factoid",
+   "role": "employee",
+   "expected_route": "vector",
+   "expected_facts": [
+    "52",
+    "53"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc."
+    }
+   ]
+  },
+  {
+   "id": 21,
+   "question": "Who are NVIDIA's competitors?",
+   "category": "multi_hop",
+   "role": "employee",
+   "expected_route": "graph",
+   "expected_facts": [
+    "Intel Corporation",
+    "Advanced Micro Devices"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "NVIDIA Corporation",
+     "page": 12
+    }
+   ]
+  },
+  {
+   "id": 22,
+   "question": "What was Microsoft's net income in fiscal 2024?",
+   "category": "numeric",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "88136"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Microsoft Corporation",
+     "page": 79
+    }
+   ]
+  },
+  {
+   "id": 23,
+   "question": "Which geographic segment generated the most revenue for Apple in fiscal 2024?",
+   "category": "comparison",
+   "role": "employee",
+   "expected_route": "sql",
+   "expected_facts": [
+    "Americas"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Apple Inc.",
+     "page": 31
+    }
+   ]
+  },
+  {
+   "id": 24,
+   "question": "What products does Microsoft's Experiences and Devices segment include?",
+   "category": "multi_hop",
+   "role": "employee",
+   "expected_route": "graph",
+   "expected_facts": [
+    "Windows",
+    "Surface"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "Microsoft Corporation",
+     "page": 20
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "question": "Where is NVIDIA headquartered?",
+   "category": "multi_hop",
+   "role": "employee",
+   "expected_route": "graph",
+   "expected_facts": [
+    "Santa Clara"
+   ],
+   "expect_refusal": false,
+   "source_hints": [
+    {
+     "company": "NVIDIA Corporation",
+     "page": 0
+    }
+   ]
+  }
+ ]
 }
