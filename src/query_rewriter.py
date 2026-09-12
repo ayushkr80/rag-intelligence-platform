@@ -6,6 +6,8 @@ every retrieval gets a self-contained query. First turn passes through unchanged
 (no API call, no cost).
 """
 
+from google.genai import types
+
 from src.config import FALLBACK_MODELS, TOOL_MODEL
 from src.generator import get_client
 from src.retry import call_with_failover
@@ -40,6 +42,7 @@ def rewrite_query(history: list[tuple[str, str]], question: str) -> str:
         lambda model: get_client().models.generate_content(
             model=model,
             contents=REWRITE_PROMPT.format(history=history_text, question=question),
+            config=types.GenerateContentConfig(temperature=0),
         ),
         label="rewrite",
     )

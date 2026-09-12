@@ -9,7 +9,10 @@ Judges are measurement instruments, not ground truth: the answer_matches
 check provides the deterministic calibration signal to compare against.
 """
 
+import json
 import re
+
+from google.genai import types
 
 from src.config import FALLBACK_MODELS, TOOL_MODEL
 from src.generator import get_client
@@ -72,12 +75,13 @@ def judge_answer(question: str, answer: str, expected_facts: list[str], expect_r
                 refusal_note=refusal_note,
                 answer=answer,
             ),
+            config=types.GenerateContentConfig(temperature=0),
         ),
         label="judge",
     )
     text = re.sub(r"^```(json)?|```$", "", response.text.strip(), flags=re.MULTILINE).strip()
     try:
-        scores = __import__("json").loads(text)
+        scores = json.loads(text)
         return {
             "correctness": int(scores.get("correctness", 0)),
             "faithfulness": int(scores.get("faithfulness", 0)),

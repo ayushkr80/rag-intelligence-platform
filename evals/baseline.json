@@ -1,17 +1,17 @@
 {
  "dense": {
   "n": 25,
-  "source_hit_rate": 0.6,
+  "source_hit_rate": 0.56,
   "permission_leaks": 0
  },
  "hybrid": {
   "n": 25,
-  "source_hit_rate": 0.48,
+  "source_hit_rate": 0.4,
   "permission_leaks": 0
  },
  "hybrid_rerank": {
   "n": 25,
-  "source_hit_rate": 0.48,
+  "source_hit_rate": 0.52,
   "permission_leaks": 0
  }
 }

@@ -5,6 +5,9 @@ keeps each tool's prompt focused — far better than one mega-prompt that
 retrieves everywhere and reasons nowhere.
 """
 
+from google import genai
+from google.genai import types
+
 from src.config import FALLBACK_MODELS, TOOL_MODEL
 from src.generator import get_client
 from src.retry import call_with_failover
@@ -39,6 +42,7 @@ def route(question: str) -> str:
         lambda model: get_client().models.generate_content(
             model=model,
             contents=ROUTE_PROMPT.format(question=question),
+            config=types.GenerateContentConfig(temperature=0),
         ),
         label="route",
     )

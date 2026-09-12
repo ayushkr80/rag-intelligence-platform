@@ -6,6 +6,8 @@ else — multiple statements, data modification — is blocked before execution.
 
 import sqlite3
 
+from google.genai import types
+
 from src import config
 from src.config import FALLBACK_MODELS, TOOL_MODEL
 from src.generator import get_client
@@ -45,6 +47,7 @@ def run_sql(question: str) -> dict:
         lambda model: get_client().models.generate_content(
             model=model,
             contents=SQL_PROMPT.format(question=question),
+            config=types.GenerateContentConfig(temperature=0),
         ),
         label="sql",
     )
