@@ -30,7 +30,11 @@ def main() -> None:
         if question.lower() in ("exit", "quit"):
             break
 
-        result = answer(history, question, role=role)
+        try:
+            result = answer(history, question, role=role)
+        except Exception as exc:
+            print(f"\nassistant> (something went wrong, try again: {exc})\n")
+            continue
         if result["search_query"] != question:
             print(f"  (searching: {result['search_query']})")
         print(f"  (route: {result['route']})")

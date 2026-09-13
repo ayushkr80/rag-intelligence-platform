@@ -40,7 +40,7 @@ Question: {question}
 Reply with ONLY the SQL."""
 
 
-def run_sql(question: str) -> dict:
+def run_sql(question: str, trace: dict = None) -> dict:
     """Generate, validate, and execute a read-only query. Returns rows or error."""
     response = call_with_failover(
         [TOOL_MODEL, *FALLBACK_MODELS],
@@ -49,7 +49,8 @@ def run_sql(question: str) -> dict:
             contents=SQL_PROMPT.format(question=question),
             config=types.GenerateContentConfig(temperature=0),
         ),
-        label="sql",
+        label="sql-gen",
+        trace=trace,
     )
     sql = response.text.strip().strip("`").strip()
     if sql.lower().startswith("sql"):

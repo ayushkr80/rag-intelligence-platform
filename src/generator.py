@@ -38,7 +38,7 @@ def get_client() -> genai.Client:
     return _client
 
 
-def generate_answer(question: str, context: str) -> str:
+def generate_answer(question: str, context: str, trace: dict = None) -> str:
     """Answer the question grounded in the numbered context chunks."""
     models = [config.GEMINI_GENERATION_MODEL, *config.FALLBACK_MODELS]
     response = call_with_failover(
@@ -48,5 +48,6 @@ def generate_answer(question: str, context: str) -> str:
             contents=PROMPT_TEMPLATE.format(context=context, question=question),
         ),
         label="generate",
+        trace=trace,
     )
     return response.text

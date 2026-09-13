@@ -5,6 +5,8 @@ import time
 
 from google.genai import errors as genai_errors
 
+from src.tracing import add_span
+
 MAX_ATTEMPTS = 6
 INITIAL_BACKOFF_SECONDS = 2.0
 TRANSIENT_CODES = ("429", "500", "503")
@@ -36,9 +38,14 @@ def call_with_backoff(call, label: str):
     raise RuntimeError("unreachable")
 
 
-def call_with_failover(models: list[str], make_call, label: str):
+def call_with_failover(models: list[str], make_call, label: str, trace: dict = None):
     """Try each model in order; a model whose daily quota is drained trips a
-    circuit breaker and is skipped instantly for the rest of the process."""
+    circuit breaker and is skipped instantly for the rest of the process.
+
+    When a trace is given, every successful call records a span with the
+    serving model, token usage, and latency — one instrumentation point
+    covers all LLM call sites.
+    """
     ordered = [m for m in dict.fromkeys(models) if m not in _drained_models]
     if not ordered:
         raise RuntimeError(
@@ -47,8 +54,20 @@ def call_with_failover(models: list[str], make_call, label: str):
         )
     last_error: Exception | None = None
     for position, model in enumerate(ordered):
+        start = time.perf_counter()
         try:
-            return call_with_backoff(lambda: make_call(model), label=f"{label}[{model}]")
+            response = call_with_backoff(lambda: make_call(model), label=f"{label}[{model}]")
+            if trace is not None:
+                usage = getattr(response, "usage_metadata", None)
+                add_span(
+                    trace,
+                    label,
+                    model=model,
+                    tokens_in=getattr(usage, "prompt_token_count", 0) or 0,
+                    tokens_out=getattr(usage, "candidates_token_count", 0) or 0,
+                    duration_ms=round((time.perf_counter() - start) * 1000),
+                )
+            return response
         except genai_errors.APIError as exc:
             last_error = exc
             if _is_daily_quota(exc):

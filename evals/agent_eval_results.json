@@ -320,19 +320,6 @@
   }
  },
  {
-  "id": 14,
-  "route": "vector",
-  "expected_route": "vector",
-  "deterministic_pass": false,
-  "answer": "In fiscal year 2024, Apple's total gross margin percentage was 46.2% (with Products gross margin percentage at 37.2% and Services gross margin percentage at 73.9%) [3].",
-  "sql_debug": null,
-  "judge": {
-   "correctness": 0,
-   "faithfulness": 0,
-   "reasoning": "The answer states that Apple's gross margin percentage was 46.2%, which is incorrect and contradicts the ground truth fact of 58.3%."
-  }
- },
- {
   "id": 15,
   "route": "vector",
   "expected_route": "vector",

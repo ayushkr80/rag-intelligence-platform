@@ -29,7 +29,7 @@ MAX_HISTORY_TURNS = 4
 MAX_ANSWER_CHARS = 300
 
 
-def rewrite_query(history: list[tuple[str, str]], question: str) -> str:
+def rewrite_query(history: list[tuple[str, str]], question: str, trace: dict = None) -> str:
     """Return a standalone version of the latest question."""
     if not history:
         return question
@@ -45,5 +45,6 @@ def rewrite_query(history: list[tuple[str, str]], question: str) -> str:
             config=types.GenerateContentConfig(temperature=0),
         ),
         label="rewrite",
+        trace=trace,
     )
     return response.text.strip().strip('"')

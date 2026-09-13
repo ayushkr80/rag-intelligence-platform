@@ -78,6 +78,7 @@ def judge_answer(question: str, answer: str, expected_facts: list[str], expect_r
             config=types.GenerateContentConfig(temperature=0),
         ),
         label="judge",
+        trace=None,
     )
     text = re.sub(r"^```(json)?|```$", "", response.text.strip(), flags=re.MULTILINE).strip()
     try:

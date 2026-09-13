@@ -35,8 +35,8 @@ Question: {question}
 Reply with exactly one word: vector, sql, or graph."""
 
 
-def route(question: str) -> str:
-    """Return 'vector' or 'sql' for the question."""
+def route(question: str, trace: dict = None) -> str:
+    """Return 'vector', 'sql', or 'graph' for the question."""
     response = call_with_failover(
         [TOOL_MODEL, *FALLBACK_MODELS],
         lambda model: get_client().models.generate_content(
@@ -45,6 +45,7 @@ def route(question: str) -> str:
             config=types.GenerateContentConfig(temperature=0),
         ),
         label="route",
+        trace=trace,
     )
     tool = response.text.strip().lower()
     return tool if tool in TOOLS else "vector"
