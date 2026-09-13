@@ -1,0 +1,9 @@
+.venv/
+.git/
+.commandcode/
+data/raw/
+data/eval_cache/
+__pycache__/
+*.pyc
+.env
+import_log.txt

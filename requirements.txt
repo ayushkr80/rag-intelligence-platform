@@ -4,3 +4,5 @@ numpy==2.5.2
 pymupdf4llm==1.28.2
 networkx==3.6.1
 sentence-transformers==6.0.1
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
