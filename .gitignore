@@ -14,9 +14,9 @@ venv/
 .ruff_cache/
 .coverage
 
-# Data (documents and generated artifacts stay local)
+# Data: raw documents stay local; the processed index ships so clones and
+# Docker deploys run out of the box
 data/raw/
-data/processed/
 data/eval_cache/
 
 # OS

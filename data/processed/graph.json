@@ -1,0 +1,583 @@
+{
+ "directed": false,
+ "multigraph": false,
+ "graph": {},
+ "nodes": [
+  {
+   "type": "company",
+   "id": "Apple Inc."
+  },
+  {
+   "type": "location",
+   "id": "Cupertino, California"
+  },
+  {
+   "type": "product",
+   "id": "iPhone"
+  },
+  {
+   "type": "product",
+   "id": "Mac"
+  },
+  {
+   "type": "product",
+   "id": "iPad"
+  },
+  {
+   "type": "product",
+   "id": "Wearables"
+  },
+  {
+   "type": "product",
+   "id": "Home"
+  },
+  {
+   "type": "product",
+   "id": "Advertising"
+  },
+  {
+   "type": "product",
+   "id": "AppleCare"
+  },
+  {
+   "type": "product",
+   "id": "Cloud Services"
+  },
+  {
+   "type": "product",
+   "id": "Digital Content"
+  },
+  {
+   "type": "product",
+   "id": "Payment Services"
+  },
+  {
+   "type": "segment",
+   "id": "Americas"
+  },
+  {
+   "type": "segment",
+   "id": "Europe"
+  },
+  {
+   "type": "segment",
+   "id": "Greater China"
+  },
+  {
+   "type": "segment",
+   "id": "Japan"
+  },
+  {
+   "type": "segment",
+   "id": "Rest of Asia Pacific"
+  },
+  {
+   "type": "company",
+   "id": "Microsoft Corporation"
+  },
+  {
+   "type": "location",
+   "id": "Redmond, Washington"
+  },
+  {
+   "type": "product",
+   "id": "Common stock"
+  },
+  {
+   "type": "product",
+   "id": "3.125% Notes due 2028"
+  },
+  {
+   "type": "product",
+   "id": "2.625% Notes due 2033"
+  },
+  {
+   "type": "product",
+   "id": "Copilot"
+  },
+  {
+   "type": "segment",
+   "id": "Cloud and AI"
+  },
+  {
+   "type": "segment",
+   "id": "Strategic Missions and Technologies"
+  },
+  {
+   "type": "segment",
+   "id": "Experiences and Devices"
+  },
+  {
+   "type": "segment",
+   "id": "Microsoft AI"
+  },
+  {
+   "type": "segment",
+   "id": "Microsoft Security"
+  },
+  {
+   "type": "segment",
+   "id": "Technology and Research"
+  },
+  {
+   "type": "product",
+   "id": "Microsoft 365"
+  },
+  {
+   "type": "product",
+   "id": "Windows"
+  },
+  {
+   "type": "product",
+   "id": "Microsoft Teams"
+  },
+  {
+   "type": "product",
+   "id": "Surface"
+  },
+  {
+   "type": "product",
+   "id": "Bing"
+  },
+  {
+   "type": "supplier",
+   "id": "third-party contract manufacturers"
+  },
+  {
+   "type": "company",
+   "id": "NVIDIA Corporation"
+  },
+  {
+   "type": "location",
+   "id": "Santa Clara, California"
+  },
+  {
+   "type": "segment",
+   "id": "Compute & Networking"
+  },
+  {
+   "type": "segment",
+   "id": "Graphics"
+  },
+  {
+   "type": "person",
+   "id": "Jen-Hsun Huang"
+  },
+  {
+   "type": "person",
+   "id": "Colette M. Kress"
+  },
+  {
+   "type": "person",
+   "id": "Ajay K. Puri"
+  },
+  {
+   "type": "person",
+   "id": "Debora Shoquist"
+  },
+  {
+   "type": "person",
+   "id": "Timothy S. Teter"
+  },
+  {
+   "type": "supplier",
+   "id": "Taiwan Semiconductor Manufacturing Company Limited"
+  },
+  {
+   "type": "supplier",
+   "id": "Samsung Electronics Co., Ltd."
+  },
+  {
+   "type": "supplier",
+   "id": "SK Hynix Inc."
+  },
+  {
+   "type": "supplier",
+   "id": "Micron Technology, Inc."
+  },
+  {
+   "type": "supplier",
+   "id": "Hon Hai Precision Industry Co., Ltd."
+  },
+  {
+   "type": "supplier",
+   "id": "Wistron Corporation"
+  },
+  {
+   "type": "supplier",
+   "id": "Fabrinet"
+  },
+  {
+   "type": "company",
+   "id": "Advanced Micro Devices, Inc."
+  },
+  {
+   "type": "company",
+   "id": "Huawei Technologies Co. Ltd."
+  },
+  {
+   "type": "company",
+   "id": "Intel Corporation"
+  },
+  {
+   "type": "company",
+   "id": "Alibaba Group"
+  },
+  {
+   "type": "company",
+   "id": "Alphabet Inc."
+  },
+  {
+   "type": "company",
+   "id": "Amazon, Inc."
+  },
+  {
+   "type": "company",
+   "id": "Baidu, Inc."
+  }
+ ],
+ "edges": [
+  {
+   "relation": "headquartered_in",
+   "source_page": 0,
+   "source": "Apple Inc.",
+   "target": "Cupertino, California"
+  },
+  {
+   "relation": "offers",
+   "source_page": 3,
+   "source": "Apple Inc.",
+   "target": "iPhone"
+  },
+  {
+   "relation": "offers",
+   "source_page": 3,
+   "source": "Apple Inc.",
+   "target": "Mac"
+  },
+  {
+   "relation": "offers",
+   "source_page": 3,
+   "source": "Apple Inc.",
+   "target": "iPad"
+  },
+  {
+   "relation": "offers",
+   "source_page": 3,
+   "source": "Apple Inc.",
+   "target": "Wearables"
+  },
+  {
+   "relation": "offers",
+   "source_page": 3,
+   "source": "Apple Inc.",
+   "target": "Home"
+  },
+  {
+   "relation": "offers",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Advertising"
+  },
+  {
+   "relation": "offers",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "AppleCare"
+  },
+  {
+   "relation": "offers",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Cloud Services"
+  },
+  {
+   "relation": "offers",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Digital Content"
+  },
+  {
+   "relation": "offers",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Payment Services"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Americas"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Europe"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Greater China"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Japan"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 4,
+   "source": "Apple Inc.",
+   "target": "Rest of Asia Pacific"
+  },
+  {
+   "relation": "headquartered_in",
+   "source_page": 0,
+   "source": "Microsoft Corporation",
+   "target": "Redmond, Washington"
+  },
+  {
+   "relation": "offers",
+   "source_page": 0,
+   "source": "Microsoft Corporation",
+   "target": "Common stock"
+  },
+  {
+   "relation": "offers",
+   "source_page": 0,
+   "source": "Microsoft Corporation",
+   "target": "3.125% Notes due 2028"
+  },
+  {
+   "relation": "offers",
+   "source_page": 0,
+   "source": "Microsoft Corporation",
+   "target": "2.625% Notes due 2033"
+  },
+  {
+   "relation": "offers",
+   "source_page": 4,
+   "source": "Microsoft Corporation",
+   "target": "Copilot"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 20,
+   "source": "Microsoft Corporation",
+   "target": "Cloud and AI"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 20,
+   "source": "Microsoft Corporation",
+   "target": "Strategic Missions and Technologies"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 20,
+   "source": "Microsoft Corporation",
+   "target": "Experiences and Devices"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 20,
+   "source": "Microsoft Corporation",
+   "target": "Microsoft AI"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 20,
+   "source": "Microsoft Corporation",
+   "target": "Microsoft Security"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 20,
+   "source": "Microsoft Corporation",
+   "target": "Technology and Research"
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 20,
+   "source": "Microsoft Corporation",
+   "target": "third-party contract manufacturers"
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "Microsoft Corporation",
+   "target": "NVIDIA Corporation"
+  },
+  {
+   "relation": "other",
+   "source_page": 20,
+   "source": "Copilot",
+   "target": "Microsoft AI"
+  },
+  {
+   "relation": "other",
+   "source_page": 20,
+   "source": "Experiences and Devices",
+   "target": "Microsoft 365"
+  },
+  {
+   "relation": "other",
+   "source_page": 20,
+   "source": "Experiences and Devices",
+   "target": "Windows"
+  },
+  {
+   "relation": "other",
+   "source_page": 20,
+   "source": "Experiences and Devices",
+   "target": "Microsoft Teams"
+  },
+  {
+   "relation": "other",
+   "source_page": 20,
+   "source": "Experiences and Devices",
+   "target": "Surface"
+  },
+  {
+   "relation": "other",
+   "source_page": 20,
+   "source": "Microsoft AI",
+   "target": "Bing"
+  },
+  {
+   "relation": "headquartered_in",
+   "source_page": 0,
+   "source": "NVIDIA Corporation",
+   "target": "Santa Clara, California"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 4,
+   "source": "NVIDIA Corporation",
+   "target": "Compute & Networking"
+  },
+  {
+   "relation": "operates_segment",
+   "source_page": 4,
+   "source": "NVIDIA Corporation",
+   "target": "Graphics"
+  },
+  {
+   "relation": "led_by",
+   "source_page": 18,
+   "source": "NVIDIA Corporation",
+   "target": "Jen-Hsun Huang"
+  },
+  {
+   "relation": "led_by",
+   "source_page": 18,
+   "source": "NVIDIA Corporation",
+   "target": "Colette M. Kress"
+  },
+  {
+   "relation": "led_by",
+   "source_page": 18,
+   "source": "NVIDIA Corporation",
+   "target": "Ajay K. Puri"
+  },
+  {
+   "relation": "led_by",
+   "source_page": 18,
+   "source": "NVIDIA Corporation",
+   "target": "Debora Shoquist"
+  },
+  {
+   "relation": "led_by",
+   "source_page": 18,
+   "source": "NVIDIA Corporation",
+   "target": "Timothy S. Teter"
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Taiwan Semiconductor Manufacturing Company Limited"
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Samsung Electronics Co., Ltd."
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "SK Hynix Inc."
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Micron Technology, Inc."
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Hon Hai Precision Industry Co., Ltd."
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Wistron Corporation"
+  },
+  {
+   "relation": "depends_on_supplier",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Fabrinet"
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Advanced Micro Devices, Inc."
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Huawei Technologies Co. Ltd."
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Intel Corporation"
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Alibaba Group"
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Alphabet Inc."
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Amazon, Inc."
+  },
+  {
+   "relation": "competes_with",
+   "source_page": 12,
+   "source": "NVIDIA Corporation",
+   "target": "Baidu, Inc."
+  }
+ ]
+}
