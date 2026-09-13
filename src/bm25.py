@@ -15,7 +15,17 @@ TOKEN_PATTERN = re.compile(r"[a-z0-9]+")
 
 
 def tokenize(text: str) -> list[str]:
-    return TOKEN_PATTERN.findall(text.lower())
+    """Lowercase word tokens with naive singular-form stemming.
+
+    Stripping a single trailing 's' (keeping 'ss' endings) bridges the
+    singular/plural gap — 'vendor' now matches 'vendors' — while staying
+    consistent because queries and documents flow through the same function.
+    """
+    tokens = TOKEN_PATTERN.findall(text.lower())
+    return [
+        token[:-1] if len(token) > 3 and token.endswith("s") and not token.endswith("ss") else token
+        for token in tokens
+    ]
 
 
 class BM25Index:

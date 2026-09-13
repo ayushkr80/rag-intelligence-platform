@@ -24,72 +24,6 @@
   }
  },
  {
-  "id": 3,
-  "route": "sql",
-  "expected_route": "sql",
-  "deterministic_pass": false,
-  "answer": "Not in the documents.",
-  "sql_debug": {
-   "sql": "SELECT company, segment, fiscal_year, value, unit FROM financials WHERE metric = 'segment_revenue' AND ((company = 'Apple Inc.' AND segment = 'services') OR (company = 'Microsoft Corporation' AND segment = 'intelligent_cloud') OR (company = 'NVIDIA Corporation' AND segment = 'compute_networking')) ORDER BY company, fiscal_year",
-   "rows": [
-    [
-     "Apple Inc.",
-     "services",
-     2022,
-     78129.0,
-     "MUSD"
-    ],
-    [
-     "Apple Inc.",
-     "services",
-     2023,
-     85200.0,
-     "MUSD"
-    ],
-    [
-     "Apple Inc.",
-     "services",
-     2024,
-     96169.0,
-     "MUSD"
-    ],
-    [
-     "Microsoft Corporation",
-     "intelligent_cloud",
-     2023,
-     87907.0,
-     "MUSD"
-    ],
-    [
-     "Microsoft Corporation",
-     "intelligent_cloud",
-     2024,
-     105362.0,
-     "MUSD"
-    ],
-    [
-     "NVIDIA Corporation",
-     "compute_networking",
-     2024,
-     47405.0,
-     "MUSD"
-    ],
-    [
-     "NVIDIA Corporation",
-     "compute_networking",
-     2025,
-     116193.0,
-     "MUSD"
-    ]
-   ]
-  },
-  "judge": {
-   "correctness": 0,
-   "faithfulness": 0,
-   "reasoning": "The answer incorrectly states that the information is not in the documents, failing to provide the ground truth fact 'NVIDIA'."
-  }
- },
- {
   "id": 4,
   "route": "vector",
   "expected_route": "vector",
@@ -330,19 +264,6 @@
    "correctness": 2,
    "faithfulness": 2,
    "reasoning": "The answer correctly identifies ISO (specifically ISO 27001 and ISO 28001) as the standards NVIDIA assesses its suppliers against, which fully contains the ground truth fact."
-  }
- },
- {
-  "id": 16,
-  "route": "vector",
-  "expected_route": "vector",
-  "deterministic_pass": false,
-  "answer": "Based on the context provided, NVIDIA's vendor risk assessment process involves the following key practices:\n\n* **Evaluating Cybersecurity Risks:** Depending on the nature and sensitivity of the supplier and the data processed on NVIDIA's behalf, the company distributes and reviews supplier questionnaires to assess cybersecurity risks associated with third parties that have access to confidential and sensitive company information [1][2].\n* **Privacy and Security Controls:** NVIDIA takes steps to ensure these vendors implement data privacy and security controls to mitigate cybersecurity risks [1][2].\n* **Industry Standards and Security Evaluations:** The company routinely assesses high-risk suppliers for conformance to industry standards (such as ISO 27001, ISO 28001, and C-TPAT) and evaluates them for additional physical, product, and information security requirements [1][2].",
-  "sql_debug": null,
-  "judge": {
-   "correctness": 0,
-   "faithfulness": 0,
-   "reasoning": "The answer completely misses the required ground truth fact ('integration milestone') and instead focuses on cybersecurity risks and industry standards."
   }
  },
  {

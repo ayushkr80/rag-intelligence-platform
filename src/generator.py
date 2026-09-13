@@ -25,8 +25,12 @@ Question: {question}
 
 Rules:
 - Use only facts stated in the context; do not use outside knowledge.
+- If the context contains the underlying data needed to DERIVE the answer
+  (for example raw numbers to compute a growth rate or comparison), compute
+  it from those facts and answer — the data counts as containing the answer.
 - Cite the chunk numbers you used, like [0] or [1][2].
-- If the context does not contain the answer, reply exactly: Not in the documents.
+- If the context does not contain the answer and the answer cannot be derived
+  from it, reply exactly: Not in the documents.
 """
 
 
